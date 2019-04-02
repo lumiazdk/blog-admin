@@ -136,7 +136,7 @@ export default [{
       name: 'postDetail',
       meta: {
         icon: 'md-funnel',
-        title: '编辑文章',
+        title: '文章详情',
         hideInMenu: true,
 
       },
