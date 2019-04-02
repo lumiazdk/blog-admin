@@ -1,6 +1,9 @@
 <template>
-  <Card>
+  <Card class="card">
     <p slot="title">编辑文章</p>
+    <a href="#" slot="extra" @click="handleSubmit('formValidate')">
+      <Icon type="ios-loop-strong"></Icon>编辑
+    </a>
     <Form
       ref="formValidate"
       :model="formValidate"
@@ -56,9 +59,6 @@
         <Col span="11" class="col"></Col>
       </Row>
       <i-editor v-model="content" :config="config" :img-url="imgUrl"></i-editor>
-      <FormItem>
-        <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
-      </FormItem>
     </Form>
   </Card>
 </template>
@@ -215,5 +215,8 @@ export default {
   font-size: 20px;
   cursor: pointer;
   margin: 0 2px;
+}
+.card{
+    min-height: 500px;
 }
 </style>

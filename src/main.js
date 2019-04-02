@@ -17,7 +17,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios'
 import iEditor from 'iview-editor';
 import moment from 'moment'
-
+import './loading.js'
 // 使用 css
 import 'iview-editor/dist/iview-editor.css';
 axios.defaults.baseURL = 'http://localhost:8000'
@@ -49,6 +49,7 @@ Vue.prototype.$config = config
  * 注册指令
  */
 importDirective(Vue)
+
 
 /* eslint-disable no-new */
 new Vue({

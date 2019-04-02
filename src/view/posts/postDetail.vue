@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       data: {
-        content: "# 暂无内容"
+        content: "# 请稍等"
       }
     };
   },
