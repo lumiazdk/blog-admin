@@ -1,6 +1,6 @@
 <template>
   <Card>
-    <p slot="title">编辑文章</p>
+    <p slot="title">添加文章</p>
     <Form
       ref="formValidate"
       :model="formValidate"
@@ -123,21 +123,18 @@ export default {
     submit() {
       axios({
         method: "post",
-        url: "/editPost",
+        url: "/addPost",
         data: {
-          id: this.$route.query.id,
-          where: {
-            title: this.formValidate.title,
-            tag: this.formValidate.tag,
-            background: JSON.stringify(this.uploadList),
-            content: this.content
-          }
+          title: this.formValidate.title,
+          tag: this.formValidate.tag,
+          background: JSON.stringify(this.uploadList),
+          content: this.content
         }
       }).then(res => {
         if (res.data.code == 1) {
-          this.$Message.info("编辑成功");
+          this.$Message.info("添加成功");
         } else {
-          this.$Message.error("编辑失败");
+          this.$Message.error("添加失败");
         }
       });
     },
@@ -150,30 +147,10 @@ export default {
           this.$Message.error("表单未完成!");
         }
       });
-    },
-    getDetail() {
-      axios({
-        method: "post",
-        url: "/getPost",
-        data: {
-          page: 1,
-          where: {
-            id: this.$route.query.id
-          }
-        }
-      }).then(res => {
-        let data = res.data.result.data.rows[0];
-        this.formValidate.title = data.title;
-        this.formValidate.tag = data.tag;
-        this.content = data.content;
-        this.uploadList = JSON.parse(data.background);
-      });
     }
   },
   mounted() {},
-  created() {
-    this.getDetail();
-  }
+  created() {}
 };
 </script>
 <style scoped>

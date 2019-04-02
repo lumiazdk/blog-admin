@@ -15,7 +15,15 @@ import '@/assets/icons/iconfont.css'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:8080'
+import iEditor from 'iview-editor';
+import moment from 'moment'
+
+// 使用 css
+import 'iview-editor/dist/iview-editor.css';
+axios.defaults.baseURL = 'http://localhost:8000'
+Vue.prototype.uploadUrl = 'http://localhost:8000/upload'
+Vue.prototype.moment = moment
+
 // 实际打包时应该不引入mock
 /* eslint-disable */
 if (process.env.NODE_ENV !== 'production') require('@/mock')
@@ -23,6 +31,8 @@ Vue.use(ElementUI);
 Vue.use(iView, {
   // i18n: (key, value) => i18n.t(key, value)
 })
+Vue.use(iEditor);
+
 /**
  * @description 注册admin内置插件
  */

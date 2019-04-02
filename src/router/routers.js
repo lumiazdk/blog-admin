@@ -112,6 +112,16 @@ export default [{
       },
       component: () => import('@/view/posts/posts.vue')
     }, {
+      path: 'addPost',
+      name: 'addPost',
+      meta: {
+        icon: 'md-funnel',
+        title: '添加文章',
+        hideInMenu: true,
+
+      },
+      component: () => import('@/view/posts/addPost.vue')
+    }, {
       path: 'editPost',
       name: 'editPost',
       meta: {
@@ -121,7 +131,7 @@ export default [{
 
       },
       component: () => import('@/view/posts/editPost.vue')
-    }, ]
+    }]
   },
   {
     path: '/401',
