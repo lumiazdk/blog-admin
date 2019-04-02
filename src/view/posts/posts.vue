@@ -39,10 +39,11 @@
           >{{ moment(scope.row.updatedAt).format('MMMM Do YYYY, h:mm:ss a')}}</span>
         </template>
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="100">
+      <el-table-column fixed="right" label="操作" width="150">
         <template slot-scope="scope">
           <el-button @click="editPostTap(scope.row)" type="text" size="small">编辑</el-button>
           <el-button @click="delPostTap(scope.row)" type="text" size="small">删除</el-button>
+          <el-button @click="postDetailTap(scope.row)" type="text" size="small">详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -123,6 +124,14 @@ export default {
         },
         onCancel: () => {
           this.$Message.info("已取消");
+        }
+      });
+    },
+    postDetailTap(item) {
+      this.$router.push({
+        path: "/article/postDetail",
+        query: {
+          id: item.id
         }
       });
     }

@@ -131,6 +131,16 @@ export default [{
 
       },
       component: () => import('@/view/posts/editPost.vue')
+    },{
+      path: 'postDetail',
+      name: 'postDetail',
+      meta: {
+        icon: 'md-funnel',
+        title: '编辑文章',
+        hideInMenu: true,
+
+      },
+      component: () => import('@/view/posts/postDetail.vue')
     }]
   },
   {
