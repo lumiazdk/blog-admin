@@ -1,6 +1,6 @@
 <template>
   <Card class="card">
-    <p slot="title">添加文章</p>
+    <p slot="title">添加Banner</p>
     <a href="#" slot="extra" @click="handleSubmit('formValidate')">
       <Icon type="ios-loop-strong"></Icon>添加
     </a>
@@ -13,19 +13,12 @@
     >
       <Row>
         <Col span="11" class="col">
-          <FormItem label="标题" prop="title">
-            <Input v-model="formValidate.title" placeholder="输入您的标题"></Input>
+          <FormItem label="标题" prop="name">
+            <Input v-model="formValidate.name" placeholder="输入您的标题"></Input>
           </FormItem>
         </Col>
         <Col span="11" class="col">
-          <FormItem label="标签" prop="tag">
-            <Input v-model="formValidate.tag" placeholder="输入您的标签"></Input>
-          </FormItem>
-        </Col>
-      </Row>
-      <Row>
-        <Col span="11" class="col">
-          <FormItem label="背景" prop="background">
+          <FormItem label="背景" prop="bannerPath">
             <div class="demo-upload-list" v-for="item in uploadList" :key="item">
               <template>
                 <img :src="item">
@@ -56,18 +49,7 @@
             </Modal>
           </FormItem>
         </Col>
-        <Col span="11" class="col">
-          <FormItem label="简介" prop="introduction">
-            <Input
-              v-model="formValidate.introduction"
-              type="textarea"
-              :autosize="{minRows: 2,maxRows: 5}"
-              placeholder="请输入简介"
-            ></Input>
-          </FormItem>
-        </Col>
       </Row>
-      <i-editor v-model="content" :config="config" :img-url="imgUrl"></i-editor>
     </Form>
   </Card>
 </template>
@@ -77,37 +59,22 @@ export default {
   data() {
     return {
       formValidate: {
-        title: "",
-        tag: "",
-        background: "",
-        introduction: ""
+        name: "",
+        bannerPath: ""
       },
       ruleValidate: {
-        title: [
+        name: [
           {
             required: true,
             message: "标题不能为空",
             trigger: "blur"
           }
         ],
-        tag: [
+
+        bannerPath: [
           {
             required: true,
-            message: "标签不能为空",
-            trigger: "blur"
-          }
-        ],
-        background: [
-          {
-            required: true,
-            message: "背景不能为空",
-            trigger: "blur"
-          }
-        ],
-        introduction: [
-          {
-            required: true,
-            message: "简介不能为空",
+            message: "Banner不能为空",
             trigger: "blur"
           }
         ]
@@ -116,9 +83,7 @@ export default {
       defaultList: [],
       imgName: "",
       visible: false,
-      uploadList: [],
-      content: "# 暂无内容",
-      config: { action: this.uploadUrl, maxSize: 5120, uploadForm: {} }
+      uploadList: []
     };
   },
   methods: {
@@ -142,9 +107,6 @@ export default {
       });
     },
 
-    imgUrl(res) {
-      return res.url;
-    },
     submit() {
       if (this.uploadList.length == 0) {
         this.$Message.error("请选择背景");
@@ -152,13 +114,10 @@ export default {
       }
       axios({
         method: "post",
-        url: "/addPost",
+        url: "/addBanner",
         data: {
-          title: this.formValidate.title,
-          tag: this.formValidate.tag,
-          background: JSON.stringify(this.uploadList),
-          content: this.content,
-          introduction:this.formValidate.introduction
+          name: this.formValidate.name,
+          bannerPath: JSON.stringify(this.uploadList)
         }
       }).then(res => {
         if (res.data.code == 1) {
@@ -185,9 +144,9 @@ export default {
     uploadList() {
       console.log(2);
       if (this.uploadList.length == 0) {
-        this.formValidate.background = "";
+        this.formValidate.bannerPath = "";
       } else {
-        this.formValidate.background = "value";
+        this.formValidate.bannerPath = "value";
       }
     }
   }

@@ -141,6 +141,35 @@ export default [{
 
       },
       component: () => import('@/view/posts/postDetail.vue')
+    },{
+      path: 'banners',
+      name: 'banners',
+      meta: {
+        icon: 'md-funnel',
+        title: 'Banners',
+
+      },
+      component: () => import('@/view/banners/banners.vue')
+    },{
+      path: 'addBanner',
+      name: 'addBanner',
+      meta: {
+        icon: 'md-funnel',
+        title: '添加Banner',
+        hideInMenu: true,
+
+      },
+      component: () => import('@/view/banners/addBanner.vue')
+    },{
+      path: 'editBanner',
+      name: 'editBanner',
+      meta: {
+        icon: 'md-funnel',
+        title: '编辑Banner',
+        hideInMenu: true,
+
+      },
+      component: () => import('@/view/banners/editBanner.vue')
     }]
   },
   {

@@ -25,7 +25,7 @@
       </Row>
       <Row>
         <Col span="11" class="col">
-          <FormItem label="Name" prop="name">
+          <FormItem label="background" prop="background">
             <div class="demo-upload-list" v-for="item in uploadList" :key="item">
               <template>
                 <img :src="item">
@@ -56,7 +56,16 @@
             </Modal>
           </FormItem>
         </Col>
-        <Col span="11" class="col"></Col>
+        <Col span="11" class="col">
+          <FormItem label="简介" prop="introduction">
+            <Input
+              v-model="formValidate.introduction"
+              type="textarea"
+              :autosize="{minRows: 2,maxRows: 5}"
+              placeholder="请输入简介"
+            ></Input>
+          </FormItem>
+        </Col>
       </Row>
       <i-editor v-model="content" :config="config" :img-url="imgUrl"></i-editor>
     </Form>
@@ -69,7 +78,9 @@ export default {
     return {
       formValidate: {
         title: "",
-        tag: ""
+        tag: "",
+        background: "",
+        introduction: ""
       },
       ruleValidate: {
         title: [
@@ -83,6 +94,20 @@ export default {
           {
             required: true,
             message: "标签不能为空",
+            trigger: "blur"
+          }
+        ],
+        background: [
+          {
+            required: true,
+            message: "背景不能为空",
+            trigger: "blur"
+          }
+        ],
+        introduction: [
+          {
+            required: true,
+            message: "简介不能为空",
             trigger: "blur"
           }
         ]
@@ -121,6 +146,10 @@ export default {
       return res.url;
     },
     submit() {
+      if (this.uploadList.length == 0) {
+        this.$Message.error("请选择背景");
+        return;
+      }
       axios({
         method: "post",
         url: "/editPost",
@@ -129,6 +158,8 @@ export default {
           where: {
             title: this.formValidate.title,
             tag: this.formValidate.tag,
+            introduction: this.formValidate.introduction,
+
             background: JSON.stringify(this.uploadList),
             content: this.content
           }
@@ -166,6 +197,7 @@ export default {
         this.formValidate.title = data.title;
         this.formValidate.tag = data.tag;
         this.content = data.content;
+        this.formValidate.introduction = data.introduction;
         this.uploadList = JSON.parse(data.background);
       });
     }
@@ -173,6 +205,16 @@ export default {
   mounted() {},
   created() {
     this.getDetail();
+  },
+  watch: {
+    uploadList() {
+      console.log(2);
+      if (this.uploadList.length == 0) {
+        this.formValidate.background = "";
+      } else {
+        this.formValidate.background = "value";
+      }
+    }
   }
 };
 </script>
@@ -216,7 +258,7 @@ export default {
   cursor: pointer;
   margin: 0 2px;
 }
-.card{
-    min-height: 500px;
+.card {
+  min-height: 500px;
 }
 </style>

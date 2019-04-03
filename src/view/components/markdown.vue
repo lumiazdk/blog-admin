@@ -1,13 +1,20 @@
 <template>
   <div>
-    <div v-highlight v-html="content" class="markdown-body"></div>
+    <div v-html="compiledMarkdown" class="markdown-body"></div>
   </div>
 </template>
 <script>
+import marked from "marked";
+
 export default {
   props: ["content"],
   data() {
     return {};
+  },
+  computed: {
+    compiledMarkdown() {
+      return marked(this.content, { sanitize: true });
+    }
   }
 };
 </script>

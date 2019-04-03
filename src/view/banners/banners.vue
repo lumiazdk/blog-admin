@@ -1,18 +1,18 @@
 <template>
   <Card>
-    <p slot="title">文章</p>
-    <a href="#" slot="extra" @click.prevent="addPostTap">
+    <p slot="title">Banner</p>
+    <a href="#" slot="extra" @click.prevent="addBannerTap">
       <Icon type="ios-loop-strong"></Icon>添加
     </a>
     <el-table :data="tableData" style="width: 100%" max-height="250">
-      <el-table-column prop="title" label="标题"></el-table-column>
+      <el-table-column prop="name" label="标题"></el-table-column>
       <el-table-column label="背景">
         <template slot-scope="scope">
           <el-popover placement="right" trigger="click">
             <img
               :src="item"
               alt
-              v-for="(item,k) in JSON.parse(scope.row.background)"
+              v-for="(item,k) in JSON.parse(scope.row.bannerPath)"
               :key="k"
               class="background"
             >
@@ -20,16 +20,6 @@
           </el-popover>
         </template>
       </el-table-column>
-      <el-table-column label="简介">
-        <template slot-scope="scope">
-          <el-popover placement="right" trigger="click">
-            <span>{{scope.row.introduction}}</span>
-            <Button type="dashed" slot="reference">简介</Button>
-          </el-popover>
-        </template>
-      </el-table-column>
-      <el-table-column prop="readNum" label="阅读数"></el-table-column>
-      <el-table-column prop="like" label="点赞数"></el-table-column>
       <el-table-column prop="createdAt" label="创建时间">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
@@ -44,9 +34,8 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="150">
         <template slot-scope="scope">
-          <el-button @click="editPostTap(scope.row)" type="text" size="small">编辑</el-button>
-          <el-button @click="delPostTap(scope.row)" type="text" size="small">删除</el-button>
-          <el-button @click="postDetailTap(scope.row)" type="text" size="small">详情</el-button>
+          <el-button @click="editBannerTap(scope.row)" type="text" size="small">编辑</el-button>
+          <el-button @click="delBannerTap(scope.row)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -78,7 +67,7 @@ export default {
     async getlist() {
       let data = await axios({
         method: "post",
-        url: "/getPost",
+        url: "/getBanner",
         data: {
           page: this.page,
           where: {}
@@ -93,26 +82,26 @@ export default {
       this.page = page;
       this.getlist();
     },
-    addPostTap() {
+    addBannerTap() {
       this.$router.push({
-        path: "/article/addPost"
+        path: "/article/addBanner"
       });
     },
-    editPostTap(item) {
+    editBannerTap(item) {
       this.$router.push({
-        path: "/article/editPost",
+        path: "/article/editBanner",
         query: {
           id: item.id
         }
       });
     },
-    delPostTap(item) {
+    delBannerTap(item) {
       this.$Modal.confirm({
         title: "确认删除本条文章？",
         onOk: () => {
           axios({
             method: "post",
-            url: "/delPost",
+            url: "/delBanner",
             data: {
               id: item.id
             }

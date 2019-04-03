@@ -1,20 +1,13 @@
 <template>
   <div>
-    <div v-highlight v-html="compiledMarkdown" class="markdown-body"></div>
+    <markdown :content="data.content"></markdown>
   </div>
 </template>
 <script>
 import axios from "axios";
-import marked from "marked";
-import hljs from "highlight.js";
 import Vue from "vue";
 import markdown from "../components/markdown";
-Vue.directive("highlight", el => {
-  let blocks = el.querySelectorAll("pre code");
-  blocks.forEach(block => {
-    hljs.highlightBlock(block);
-  });
-});
+
 export default {
   components: {
     markdown
@@ -46,12 +39,7 @@ export default {
   created() {
     this.getDetail();
   },
-  computed: {
-    compiledMarkdown() {
-      //this.articleDetail.context数据
-      return marked(this.data.content, { sanitize: true });
-    }
-  }
+ 
 };
 </script>
 <style scoped>
