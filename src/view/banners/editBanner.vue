@@ -1,8 +1,8 @@
 <template>
   <Card class="card">
-    <p slot="title">添加Banner</p>
+    <p slot="title">编辑Banner</p>
     <a href="#" slot="extra" @click="handleSubmit('formValidate')">
-      <Icon type="ios-loop-strong"></Icon>添加
+      <Icon type="ios-loop-strong"></Icon>编辑
     </a>
     <Form
       ref="formValidate"

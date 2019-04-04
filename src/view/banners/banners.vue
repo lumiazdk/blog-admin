@@ -97,7 +97,7 @@ export default {
     },
     delBannerTap(item) {
       this.$Modal.confirm({
-        title: "确认删除本条文章？",
+        title: "确认删除此Banner?",
         onOk: () => {
           axios({
             method: "post",
