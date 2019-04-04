@@ -25,7 +25,7 @@
       </Row>
       <Row>
         <Col span="11" class="col">
-          <FormItem label="background" prop="background">
+          <FormItem label="背景" prop="background">
             <div class="demo-upload-list" v-for="item in uploadList" :key="item">
               <template>
                 <img :src="item">
@@ -51,7 +51,7 @@
                 </label>
               </div>
             </div>
-            <Modal title="View Image" v-model="visible">
+            <Modal title="预览" v-model="visible">
               <img :src="imgName" v-if="visible" style="width: 100%">
             </Modal>
           </FormItem>
@@ -123,7 +123,7 @@ export default {
   },
   methods: {
     handleView(item) {
-      this.imgName = item.url;
+      this.imgName = item;
       this.visible = true;
     },
     handleRemove(file) {

@@ -51,7 +51,7 @@
                 </label>
               </div>
             </div>
-            <Modal title="View Image" v-model="visible">
+            <Modal title="预览" v-model="visible">
               <img :src="imgName" v-if="visible" style="width: 100%">
             </Modal>
           </FormItem>
@@ -123,7 +123,7 @@ export default {
   },
   methods: {
     handleView(item) {
-      this.imgName = item.url;
+      this.imgName = item;
       this.visible = true;
     },
     handleRemove(file) {
